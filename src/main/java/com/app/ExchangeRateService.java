@@ -12,14 +12,18 @@ import java.net.URISyntaxException;
 
 public class ExchangeRateService {
 
-    private final String ApiKey = "";
+    private String apiKey;
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
     public JSONObject getConversion(String fromCurrency, String toCurrency, String amount) throws URISyntaxException, IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet request = new HttpGet("http://api.exchangeratesapi.io/v1/convert");
         URI uri = new URIBuilder(request.getURI()).addParameter("from", fromCurrency)
                 .addParameter("to", toCurrency)
                 .addParameter("amount", amount)
-                .addParameter("access_key", this.ApiKey)
+                .addParameter("access_key", this.apiKey)
                 .build();
         request.setURI(uri);
         System.out.println(request.getURI());
@@ -31,7 +35,7 @@ public class ExchangeRateService {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet request = new HttpGet("http://api.exchangeratesapi.io/v1/latest");
         URI uri = new URIBuilder(request.getURI())
-                .addParameter("access_key", this.ApiKey)
+                .addParameter("access_key", this.apiKey)
                         .build();
         request.setURI(uri);
 
